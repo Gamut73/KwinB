@@ -1,13 +1,14 @@
 plugins {
     kotlin("jvm") version "2.3.21"
+    id("com.gradleup.shadow") version "9.4.1"
     application
 }
 
-group = "{# @pebvariable name="groupId" type="string" #}{{groupId}}"
+group = "{# @pebvariable name="groupId" type="string" #}{{ groupId | lower }}"
 version = "1.0-SNAPSHOT"
 
 application {
-    mainClass.set("Main.kt")
+    mainClass.set("MainKt")
 }
 
 repositories {
@@ -15,6 +16,11 @@ repositories {
 }
 
 dependencies {
+
+    //CLIKT for cli
+    implementation("com.github.ajalt.clikt:clikt:5.1.0")
+    implementation("com.github.ajalt.clikt:clikt-markdown:5.1.0")
+
     testImplementation(kotlin("test"))
 }
 
@@ -24,4 +30,13 @@ kotlin {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.shadowJar {
+    archiveBaseName.set("{{ projectName | lower }}")
+    archiveClassifier.set("")
+    mergeServiceFiles()
+    manifest {
+        attributes("Main-Class" to "org.artificery.MainKt")
+    }
 }

@@ -12,14 +12,18 @@ class KotlinJvmProjectGenerator(
     fun generate(project: Project, outputDirectory: Path) {
         with(project) {
             val projectDirectory = outputDirectory.resolve(name)
+            val srcDirectoryFilePath = "src/main/kotlin/${packageIdToPath(packageId.lowercase())}"
 
             if (Files.exists(projectDirectory)) {
                 error("Directory already exists: $projectDirectory")
+            } else if (project.isValid().not()) {
+                error("Project is not valid: $project, please fix the validation errors and try again.")
             }
 
             val context = mapOf(
                 "projectName" to name,
-                "packageId" to packageId,
+                "packageId" to packageId.lowercase(),
+                "groupId" to groupId.lowercase(),
             )
 
             writeRenderedFile(
@@ -35,8 +39,14 @@ class KotlinJvmProjectGenerator(
             )
 
             writeRenderedFile(
-                targetFile = projectDirectory.resolve("src/main/kotlin/Main.kt"),
+                targetFile = projectDirectory.resolve("$srcDirectoryFilePath/Main.kt"),
                 templatePath = "kotlin-jvm-cli/src/main/kotlin/Main.kt.peb",
+                context = context
+            )
+
+            writeRenderedFile(
+                targetFile = projectDirectory.resolve("$srcDirectoryFilePath/commands/$name.kt"),
+                templatePath = "kotlin-jvm-cli/src/main/kotlin/commands/Project.kt.peb",
                 context = context
             )
         }
@@ -53,4 +63,6 @@ class KotlinJvmProjectGenerator(
 
         targetFile.writeText(renderedContent)
     }
+
+    private fun packageIdToPath(packageId: String): String = packageId.replace(".", "/")
 }

@@ -1,5 +1,8 @@
-package {# @pebvariable name="packageId" type="string" #}{{ packageId }}
+package {{ packageId }}
 
-fun main() {
-    println("Welcome to {# @pebvariable name="projectName" type="string" #}{{ projectName }}")
-}
+
+import com.github.ajalt.clikt.core.main
+import {{ packageId }}.commands.{{ projectName }}
+
+
+fun main(args: Array<String>) = {{ projectName }}().main(args)

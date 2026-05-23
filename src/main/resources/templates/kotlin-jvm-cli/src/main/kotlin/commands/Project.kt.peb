@@ -1,0 +1,10 @@
+package {{ packageId }}.commands
+
+
+import com.github.ajalt.clikt.core.CliktCommand
+
+class {{ projectName }} : CliktCommand() {
+    override fun run() {
+        echo("*** {{ projectName }} ***")
+    }
+}
