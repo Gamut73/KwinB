@@ -1,5 +1,5 @@
-package {{ packageId }}
+package {# @pebvariable name="packageId" type="string" #}{{ packageId }}
 
 fun main() {
-    println("Welcome to {{ projectName }}")
+    println("Welcome to {# @pebvariable name="projectName" type="string" #}{{ projectName }}")
 }

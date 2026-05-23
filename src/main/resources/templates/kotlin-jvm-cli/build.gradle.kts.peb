@@ -3,7 +3,7 @@ plugins {
     application
 }
 
-group = "{{groupId}}"
+group = "{# @pebvariable name="groupId" type="string" #}{{groupId}}"
 version = "1.0-SNAPSHOT"
 
 application {

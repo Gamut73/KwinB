@@ -2,9 +2,11 @@ package org.artificery.commands
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
-import com.github.ajalt.clikt.parameters.arguments.default
+import com.github.ajalt.clikt.parameters.options.default
+import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.file
 import org.artificery.data.KotlinJvmProjectGenerator
+import org.artificery.data.model.Project
 import java.io.File
 
 class Create(
@@ -13,14 +15,14 @@ class Create(
 
     val projectName by argument()
 
-    val outputDirectory by argument()
+    val outputDirectory by option("-o", "--outputDir", help = "Output directory for the project folder.")
         .file(mustExist = true, canBeFile = false, canBeDir = true)
         .default(File("."))
 
     override fun run() {
         kotlinJvmProjectGenerator.generate(
-            projectName = projectName,
-            outputDirectory = outputDirectory.toPath()
+            project = Project(projectName),
+            outputDirectory = outputDirectory.toPath(),
         )
     }
 }
