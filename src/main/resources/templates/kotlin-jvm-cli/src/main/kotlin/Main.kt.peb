@@ -1,0 +1,5 @@
+package {{ packageId }}
+
+fun main() {
+    println("Welcome to {{ projectName }}")
+}

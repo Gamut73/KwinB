@@ -1,4 +1,4 @@
-package org.example.commands
+package org.artificery.commands
 
 import com.github.ajalt.clikt.core.CliktCommand
 
