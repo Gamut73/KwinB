@@ -56,7 +56,7 @@ jobs:
       - name: Package as .dmg
         run: |
           mkdir -p dmg-staging
-          cp {{ projectName | lower }} dmg-staging/{{ projectName | lower }}
+          cp {{ projectName | lower }} dmg-staging/{{ projectName | lower }} \
           hdiutil create \
             -volname "{{ projectName }}" \
             -srcfolder dmg-staging \

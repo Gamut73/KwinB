@@ -4,10 +4,10 @@ import java.nio.file.Path
 
 data class Project(
     val name: String,
-    val outputDirectoryPath: Path = Path.of("."),
+    val projectFolderParentPath: Path = Path.of("."),
     val packageId: String = "org.artificery",
     val groupId: String = "org.artificery",
-    val projectDirectoryPath: Path = outputDirectoryPath.resolve(name),
+    val projectDirectoryPath: Path = projectFolderParentPath.resolve(name),
     val srcDirectoryFilePath: String = "src/main/kotlin/${packageIdToPath(packageId.lowercase())}",
     val context: Map<String, String> = mapOf(
         "projectName" to name,

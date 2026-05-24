@@ -1,4 +1,4 @@
-name: Build . native image
+name: Build KwinB native image
 description: Checks out the repo, sets up GraalVM, and builds the native image from the shadow JAR
 
 runs:
@@ -24,14 +24,14 @@ runs:
     - name: Upload Jar
       uses: actions/upload-artifact@v4
       with:
-        name: ..jar
-        path: .
+        name: kwinb.jar
+        path: kwinb
     - name: Build native image
       shell: bash
       run: |
         native-image \
-          -jar ./build/libs/..jar \
+          -jar ./build/libs/kwinb.jar \
           --initialize-at-build-time=kotlin.DeprecationLevel \
           --initialize-at-run-time=io.ktor.network.selector.InterestSuspensionsMap \
-          . \
+          kwinb \
           --no-server

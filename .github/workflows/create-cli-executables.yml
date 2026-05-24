@@ -1,4 +1,4 @@
-name: Create . CLI executables
+name: Create kwinb CLI executables
 on: [push]
 jobs:
   build-linux-executable:
@@ -13,27 +13,27 @@ jobs:
       - name: Upload native executable
         uses: actions/upload-artifact@v4
         with:
-          name: .-linux
-          path: .
+          name: kwinb-linux
+          path: kwinb
       - name: Package as .deb
         run: |
           mkdir -p deb-pkg/usr/local/bin
-          cp . deb-pkg/usr/local/bin/.          mkdir -p deb-pkg/DEBIAN
+          cp kwinb deb-pkg/usr/local/bin/kwinb          mkdir -p deb-pkg/DEBIAN
           cat <<EOF > deb-pkg/DEBIAN/control
-          Package: .          Version: 1.0.0
+          Package: kwinb          Version: 1.0.0
           Section: utils
           Priority: optional
           Architecture: amd64
           Maintainer: twenty-eight the.28th.artificery@gmail.com
-          Description: . CLI tool
+          Description: KwinB CLI tool
           EOF
-          dpkg-deb --build deb-pkg ..deb
+          dpkg-deb --build deb-pkg kwinb.deb
 
       - name: Upload .deb artifact
         uses: actions/upload-artifact@v4
         with:
-          name: .-linux-deb
-          path: ..deb
+          name: kwinb-linux-deb
+          path: kwinb.deb
 
   build-macos-dmg:
     runs-on: macos-latest
@@ -47,19 +47,20 @@ jobs:
       - name: Upload native executable
         uses: actions/upload-artifact@v4
         with:
-          name: .-macos
-          path: .
+          name: kwinb-macos
+          path: kwinb
       - name: Package as .dmg
         run: |
           mkdir -p dmg-staging
-          cp . dmg-staging/.          hdiutil create \
-            -volname "." \
+          cp kwinb dmg-staging/kwinb \
+          hdiutil create \
+            -volname "KwinB" \
             -srcfolder dmg-staging \
             -ov -format UDZO \
-            ..dmg
+            kwinb.dmg
 
       - name: Upload .dmg artifact
         uses: actions/upload-artifact@v4
         with:
-          name: .-macos-dmg
-          path: ..dmg
+          name: kwinb-macos-dmg
+          path: kwinb.dmg
