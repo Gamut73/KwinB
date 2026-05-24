@@ -1,0 +1,37 @@
+name: Build KwinB native image
+description: Checks out the repo, sets up GraalVM, and builds the native image from the shadow JAR
+
+runs:
+  using: composite
+  steps:
+
+    - name: Set up GraalVM
+      uses: graalvm/setup-graalvm@v1
+      with:
+        java-version: '21'
+        distribution: 'graalvm-community'
+        version: '21.0.3'
+        native-image-job-reports: 'true'
+
+    - name: Grant execute permission for gradlew
+      shell: bash
+      run: chmod +x ./gradlew
+
+    - name: Build shadow JAR
+      shell: bash
+      run: ./gradlew shadowJar
+
+    - name: Upload Jar
+      uses: actions/upload-artifact@v4
+      with:
+        name: kwinb.jar
+        path: kwinb
+    - name: Build native image
+      shell: bash
+      run: |
+        native-image \
+          -jar ./build/libs/kwinb.jar \
+          --initialize-at-build-time=kotlin.DeprecationLevel \
+          --initialize-at-run-time=io.ktor.network.selector.InterestSuspensionsMap \
+          kwinb \
+          --no-server
