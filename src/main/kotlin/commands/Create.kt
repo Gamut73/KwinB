@@ -5,7 +5,7 @@ import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.file
-import org.artificery.data.KotlinJvmProjectGenerator
+import org.artificery.data.generator.KotlinJvmProjectGenerator
 import org.artificery.data.model.Project
 import java.io.File
 
@@ -21,8 +21,7 @@ class Create(
 
     override fun run() {
         kotlinJvmProjectGenerator.generate(
-            project = Project(projectName),
-            outputDirectory = outputDirectory.toPath(),
+            project = Project(projectName, outputDirectory.toPath()),
         )
     }
 }

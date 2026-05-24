@@ -1,0 +1,70 @@
+name: Create {# @pebvariable name="projectName" type="" #}{{ projectName | lower }} CLI executables
+on: [push]
+jobs:
+  build-linux-executable:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build native image
+        uses: ./.github/actions/build-native-image
+
+      - name: Upload native executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: {{ projectName | lower }}-linux
+          path: {{ projectName | lower }}
+
+      - name: Package as .deb
+        run: |
+          mkdir -p deb-pkg/usr/local/bin
+          cp {{ projectName | lower }} deb-pkg/usr/local/bin/{{ projectName | lower }}
+          mkdir -p deb-pkg/DEBIAN
+          cat <<EOF > deb-pkg/DEBIAN/control
+          Package: {{ projectName | lower }}
+          Version: 1.0.0
+          Section: utils
+          Priority: optional
+          Architecture: amd64
+          Maintainer: twenty-eight the.28th.artificery@gmail.com
+          Description: {{ projectName }} CLI tool
+          EOF
+          dpkg-deb --build deb-pkg {{ projectName | lower }}.deb
+
+      - name: Upload .deb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: {{ projectName | lower }}-linux-deb
+          path: {{ projectName | lower }}.deb
+
+  build-macos-dmg:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build native image
+        uses: ./.github/actions/build-native-image
+
+      - name: Upload native executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: {{ projectName | lower }}-macos
+          path: {{ projectName | lower }}
+
+      - name: Package as .dmg
+        run: |
+          mkdir -p dmg-staging
+          cp {{ projectName | lower }} dmg-staging/{{ projectName | lower }}
+          hdiutil create \
+            -volname "{{ projectName }}" \
+            -srcfolder dmg-staging \
+            -ov -format UDZO \
+            {{ projectName | lower }}.dmg
+
+      - name: Upload .dmg artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: {{ projectName | lower }}-macos-dmg
+          path: {{ projectName | lower }}.dmg
