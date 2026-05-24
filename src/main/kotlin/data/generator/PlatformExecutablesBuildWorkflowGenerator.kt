@@ -14,8 +14,8 @@ class PlatformExecutablesBuildWorkflowGenerator(
             }
 
             renderer.writeRenderedFile(
-                targetFile = projectDirectoryPath.resolve(".github/workflows/actions/build-native-image/action.yml"),
-                templatePath = "kotlin-jvm-cli/github/workflows/actions/build-native-image/action.yml.peb",
+                targetFile = projectDirectoryPath.resolve(".github/actions/build-native-image/action.yml"),
+                templatePath = "kotlin-jvm-cli/github/actions/build-native-image/action.yml.peb",
                 context = context
             )
 
