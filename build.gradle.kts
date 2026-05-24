@@ -4,8 +4,7 @@ plugins {
     application
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = "org.artificery"
 
 application {
     mainClass.set("MainKt")

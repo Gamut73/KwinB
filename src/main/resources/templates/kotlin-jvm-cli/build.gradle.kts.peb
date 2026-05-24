@@ -5,7 +5,6 @@ plugins {
 }
 
 group = "{# @pebvariable name="groupId" type="string" #}{{ groupId | lower }}"
-version = "1.0-SNAPSHOT"
 
 application {
     mainClass.set("MainKt")
