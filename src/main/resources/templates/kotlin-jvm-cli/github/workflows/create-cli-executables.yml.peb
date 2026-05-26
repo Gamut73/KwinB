@@ -18,9 +18,9 @@ jobs:
 
       - name: Package as .deb
         run: |
-          mkdir -p deb-pkg/usr/local/bin \
-          cp {{ projectName | lower }} deb-pkg/usr/local/bin/{{ projectName | lower }} \
-          mkdir -p deb-pkg/DEBIAN \
+          mkdir -p deb-pkg/usr/local/bin
+          cp {{ projectName | lower }} deb-pkg/usr/local/bin/{{ projectName | lower }}
+          mkdir -p deb-pkg/DEBIAN
           cat <<EOF > deb-pkg/DEBIAN/control
           Package: {{ projectName | lower }}
           Version: 1.0.0
@@ -29,7 +29,7 @@ jobs:
           Architecture: amd64
           Maintainer: twenty-eight the.28th.artificery@gmail.com
           Description: {{ projectName }} CLI tool
-          EOF \
+          EOF
           dpkg-deb --build deb-pkg {{ projectName | lower }}.deb
 
       - name: Upload .deb artifact
@@ -55,12 +55,12 @@ jobs:
 
       - name: Package as .dmg
         run: |
-          mkdir -p dmg-staging \
-          cp {{ projectName | lower }} dmg-staging/{{ projectName | lower }} \
-          hdiutil create \
-            -volname "{{ projectName }}" \
-            -srcfolder dmg-staging \
-            -ov -format UDZO \
+          mkdir -p dmg-staging
+          cp {{ projectName | lower }} dmg-staging/{{ projectName | lower }}
+          hdiutil create
+            -volname "{{ projectName }}"
+            -srcfolder dmg-staging
+            -ov -format UDZO
             {{ projectName | lower }}.dmg
 
       - name: Upload .dmg artifact

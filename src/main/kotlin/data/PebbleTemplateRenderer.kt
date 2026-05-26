@@ -14,6 +14,7 @@ class PebbleTemplateRenderer {
                 prefix = "templates"
             }
         )
+        .newLineTrimming(false)
         .build()
 
     fun writeRenderedFile(
