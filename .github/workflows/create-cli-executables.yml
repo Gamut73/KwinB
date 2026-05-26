@@ -1,0 +1,70 @@
+name: Create kwinb CLI executables
+on: [push]
+jobs:
+  build-linux-executable:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build native image
+        uses: ./.github/actions/build-native-image
+
+      - name: Upload native executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: kwinb-linux
+          path: kwinb
+
+      - name: Package as .deb
+        run: |
+          mkdir -p deb-pkg/usr/local/bin
+          cp kwinb deb-pkg/usr/local/bin/kwinb
+          mkdir -p deb-pkg/DEBIAN
+          cat <<EOF > deb-pkg/DEBIAN/control
+          Package: kwinb
+          Version: 1.0.0
+          Section: utils
+          Priority: optional
+          Architecture: amd64
+          Maintainer: twenty-eight the.28th.artificery@gmail.com
+          Description: KwinB CLI tool
+          EOF
+          dpkg-deb --build deb-pkg kwinb.deb
+
+      - name: Upload .deb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kwinb-linux-deb
+          path: kwinb.deb
+
+  build-macos-dmg:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build native image
+        uses: ./.github/actions/build-native-image
+
+      - name: Upload native executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: kwinb-macos
+          path: kwinb
+
+      - name: Package as .dmg
+        run: |
+          mkdir -p dmg-staging
+          cp kwinb dmg-staging/kwinb
+          hdiutil create
+            -volname "KwinB"
+            -srcfolder dmg-staging
+            -ov -format UDZO
+            kwinb.dmg
+
+      - name: Upload .dmg artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kwinb-macos-dmg
+          path: kwinb.dmg
