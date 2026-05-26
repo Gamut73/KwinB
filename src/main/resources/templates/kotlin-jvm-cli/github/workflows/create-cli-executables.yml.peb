@@ -57,10 +57,10 @@ jobs:
         run: |
           mkdir -p dmg-staging
           cp {{ projectName | lower }} dmg-staging/{{ projectName | lower }}
-          hdiutil create
-            -volname "{{ projectName }}"
-            -srcfolder dmg-staging
-            -ov -format UDZO
+          hdiutil create \
+            -volname "{{ projectName }}" \
+            -srcfolder dmg-staging \
+            -ov -format UDZO \
             {{ projectName | lower }}.dmg
 
       - name: Upload .dmg artifact
