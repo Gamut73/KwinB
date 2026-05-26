@@ -17,9 +17,9 @@ jobs:
           path: kwinb
       - name: Package as .deb
         run: |
-          mkdir -p deb-pkg/usr/local/bin \
-          cp kwinb deb-pkg/usr/local/bin/kwinb \
-          mkdir -p deb-pkg/DEBIAN \
+          mkdir -p deb-pkg/usr/local/bin
+          cp kwinb deb-pkg/usr/local/bin/kwinb
+          mkdir -p deb-pkg/DEBIAN
           cat <<EOF > deb-pkg/DEBIAN/control
           Package: kwinb          Version: 1.0.0
           Section: utils
@@ -27,7 +27,7 @@ jobs:
           Architecture: amd64
           Maintainer: twenty-eight the.28th.artificery@gmail.com
           Description: KwinB CLI tool
-          EOF \
+          EOF
           dpkg-deb --build deb-pkg kwinb.deb
 
       - name: Upload .deb artifact
