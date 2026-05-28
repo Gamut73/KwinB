@@ -17,6 +17,12 @@ class KotlinJvmProjectGenerator(
             }
 
             renderer.writeRenderedFile(
+                targetFile = projectDirectoryPath.resolve(".gitignore"),
+                templatePath = "kotlin-jvm-cli/.gitignore.peb",
+                context = context
+            )
+
+            renderer.writeRenderedFile(
                 targetFile = projectDirectoryPath.resolve("settings.gradle.kts"),
                 templatePath = "kotlin-jvm-cli/settings.gradle.kts.peb",
                 context = context
