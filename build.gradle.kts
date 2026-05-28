@@ -21,6 +21,9 @@ dependencies {
     implementation("com.github.ajalt.clikt:clikt:5.1.0")
     implementation("com.github.ajalt.clikt:clikt-markdown:5.1.0")
 
+    //Mordant for TUI
+    implementation("com.github.ajalt.mordant:mordant:3.0.2")
+
     //Pebble for template rendering
     implementation("io.pebbletemplates:pebble:4.1.1")
 
