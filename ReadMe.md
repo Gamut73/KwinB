@@ -25,6 +25,16 @@ $ kwinb --help
 ```
 
 Use KwinB with the `create` command to generate a new Kotlin/JVM CLI project:
+```
+$ kwinb create <project-name> --output-dir <output-directory>
+```
+The project name should be in PascalCase. The generated project folder will be placed in the specified output directory.
+Basically whatever project you create with KwinB will have the same project structure and usage as KwinB itself.
+
+Use KwinB `add` to add an optional workflows, libraries, etc post project creation:
+```
+$ kwinb add <feature-name> <project-folder>
+```
 
 ## Libraries and Tools Used
 
