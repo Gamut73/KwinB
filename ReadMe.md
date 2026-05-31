@@ -47,6 +47,9 @@ KwinB generates Kotlin/JVM command-line applications.
 - Kotlin version: `2.3.21`
 - JVM toolchain: Java `21`
 
+### Pebble
+KwinB uses [Pebble](https://pebbletemplates.io/) for templating.
+
 ### Clikt
 
 KwinB uses [Clikt](https://ajalt.github.io/clikt/) to build command-line interfaces.
@@ -57,3 +60,6 @@ Clikt provides:
 - Arguments and options
 - Help text generation
 - Type-safe CLI parsing
+
+### Mordant
+KwinB uses [Mordant](https://github.com/ajalt/mordant) for pretty printing and Terminal UI
