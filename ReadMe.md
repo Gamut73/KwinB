@@ -1,3 +1,5 @@
+<img width="256" height="256" alt="image" src="https://github.com/user-attachments/assets/4efbb4a6-e17d-4478-9b13-eb29096ab5ee" />
+
 # KwinB
 
 KwinB is a Kotlin CLI tool for quickly spinning up a new Kotlin CLI project.
