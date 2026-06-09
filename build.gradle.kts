@@ -7,7 +7,7 @@ plugins {
 group = "org.artificery"
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("org.artificery.MainKt")
     applicationDefaultJvmArgs = listOf("-Djava.util.logging.config.file=logging.properties")
 }
 

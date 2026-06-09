@@ -7,7 +7,7 @@ plugins {
 group = "{# @pebvariable name="groupId" type="string" #}{{ groupId | lower }}"
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("{{ packageId }}.MainKt")
 }
 
 repositories {
