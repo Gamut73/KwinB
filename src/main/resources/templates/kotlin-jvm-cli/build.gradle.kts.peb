@@ -40,6 +40,6 @@ tasks.shadowJar {
     archiveClassifier.set("")
     mergeServiceFiles()
     manifest {
-        attributes("Main-Class" to "org.artificery.MainKt")
+        attributes("Main-Class" to "{{ packageId }}.MainKt")
     }
 }

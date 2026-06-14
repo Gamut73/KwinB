@@ -33,6 +33,6 @@ runs:
         native-image \
           -jar ./build/libs/kwinb.jar \
           --initialize-at-build-time=kotlin.DeprecationLevel \
-          --initialize-at-run-time=io.ktor.network.selector.InterestSuspensionsMap \
-          kwinb \
+          --no-fallback \
+          -o kwinb \
           --no-server

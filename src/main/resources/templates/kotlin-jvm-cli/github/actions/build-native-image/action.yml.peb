@@ -33,6 +33,6 @@ runs:
         native-image \
           -jar ./build/libs/{{ projectName | lower }}.jar \
           --initialize-at-build-time=kotlin.DeprecationLevel \
-          --initialize-at-run-time=io.ktor.network.selector.InterestSuspensionsMap \
-          {{ projectName | lower }} \
+          --no-fallback \
+          -o {{ projectName | lower }} \
           --no-server
