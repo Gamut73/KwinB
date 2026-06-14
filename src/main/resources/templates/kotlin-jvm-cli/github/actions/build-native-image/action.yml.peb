@@ -31,7 +31,7 @@ runs:
       shell: bash
       run: |
         native-image \
-          -jar ./build/libs/{{ projectName | lower }}.jar \
+          -jar ./build/libs/{{ projectName }}-all.jar \
           --initialize-at-build-time=kotlin.DeprecationLevel \
           --no-fallback \
           -o {{ projectName | lower }} \

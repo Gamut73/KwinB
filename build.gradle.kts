@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "2.3.21"
-    id("com.gradleup.shadow") version "9.4.1"
+    id("com.gradleup.shadow") version "9.4.2"
     application
 }
 
@@ -34,13 +34,4 @@ kotlin {
 
 tasks.test {
     useJUnitPlatform()
-}
-
-tasks.shadowJar {
-    archiveBaseName.set("kwinb")
-    archiveClassifier.set("")
-    mergeServiceFiles()
-    manifest {
-        attributes("Main-Class" to "org.artificery.MainKt")
-    }
 }
